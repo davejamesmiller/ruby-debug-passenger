@@ -11,7 +11,15 @@ module RubyDebugPassenger
       # ever run in the development environment (for safety more than anything
       # else).
       if Rails.env.development? && File.exists?(File.join(Rails.root, 'tmp', 'debug.txt'))
-        require 'ruby-debug'
+        begin
+          require 'debugger'
+        rescue LoadError
+          begin
+            require 'ruby-debug'
+          rescue LoadError
+            raise "One of the gems 'debugger' or 'ruby-debug' must be present when using the gem 'ruby-debug-passenger'"
+          end
+        end
         File.delete(File.join(Rails.root, 'tmp', 'debug.txt'))
         Debugger.wait_connection = true
         Debugger.start_remote

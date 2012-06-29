@@ -13,8 +13,15 @@ This is been tested on:
 
 * Rails 3.2.2
 * Ruby (MRI) 1.9.2
-* Ruby Debugger 0.11.6
+* Old Ruby Debugger 0.11.6
 * Phusion Passenger 3.0.11
+
+and
+
+* Rails 3.0.14
+* Ruby (MRI) 1.9.3-p125
+* Debugger gem 1.1.4
+* Phusion Passenger 3.0.12 and 3.0.13
 
 It will probably work on other versions, but not on Rails 2.
 
@@ -22,6 +29,13 @@ It may or may not work on Ruby 1.8.
 
 ## Installation
 Add this to your `Gemfile` (assuming you are on Ruby 1.9):
+
+```ruby
+gem "debugger"
+gem "ruby-debug-passenger"
+```
+
+or use the old ruby-debug gem:
 
 ```ruby
 gem "ruby-debug19", require: "ruby-debug"

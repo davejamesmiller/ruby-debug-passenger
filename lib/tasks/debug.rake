@@ -1,7 +1,16 @@
 desc "Restart the app with debugging enabled, then launch the debugger"
 task :debug do
 
-  require 'ruby-debug'
+  begin
+    require 'debugger'
+  rescue LoadError
+    begin
+      require 'ruby-debug'
+    rescue LoadError
+      puts "One of the gems 'debugger' or 'ruby-debug' must be present for this task to work"
+      exit 1
+    end
+  end
 
   # This instructs the app to wait for the debugger to connect after loading
   # See config/environments/development.rb

@@ -23,26 +23,33 @@ and
 * Debugger gem 1.1.4
 * Phusion Passenger 3.0.12 and 3.0.13
 
+and
+
+* Rails 3.2.14
+* Ruby (MRI) 2.0.0-p247
+* Byebug 1.8.0
+* Passenger 4.0.10
+
 It will probably work on other versions, but not on Rails 2.
 
 It may or may not work on Ruby 1.8.
 
 ## Installation
-Add this to your `Gemfile` (assuming you are on Ruby 1.9):
+Add this to your `Gemfile` if you are on Ruby 2.0
+
+```ruby
+gem "byebug"
+gem "ruby-debug-passenger"
+```
+
+or this if you are on Ruby 1.9
 
 ```ruby
 gem "debugger"
 gem "ruby-debug-passenger"
 ```
 
-or use the old ruby-debug gem:
-
-```ruby
-gem "ruby-debug19", require: "ruby-debug"
-gem "ruby-debug-passenger"
-```
-
-Or if you're using Ruby 1.8 you can try the following, but it hasn't been tested!
+or this if you are on Ruby 1.8, but it hasn't been tested!
 
 ```ruby
 gem "ruby-debug"
@@ -52,20 +59,12 @@ gem "ruby-debug-passenger"
 Then run `bundle install` to install it.
 
 ## Usage
-Add `debugger` anywhere in your Ruby code that you want to invoke the debugger.
-(Or in an ERB template add `<% debugger %>`.)
+Add `debugger` (for rubies under 2.0) or `byebug` (for rubies from 2.0) anywhere
+in your Ruby code that you want to invoke the debugger. Or in an ERB template,
+add `<% debugger %>` or `<% byebug %>` instead.
 
 Run `rake debug` to restart Phusion Passenger and connect to the debugger. (You
 will be prompted to reload the app in your browser.)
-
-## Suggested configuration
-I recommend putting this in your `~/.rdebugrc`:
-
-```ruby
-set autolist
-set autoeval
-set autoreload
-```
 
 ## Recommended reading
 * [ruby-debug documentation](http://bashdb.sourceforge.net/ruby-debug.html)
@@ -74,6 +73,9 @@ set autoreload
   if you're a Pro subscriber.
 
 ## Changelog
+### 0.2.0
+* Support for `byebug` gem (David Rodríguez)
+
 ### 0.1.0
 * Support for `debugger` gem (Kai Middleton) [#1](https://github.com/davejamesmiller/ruby-debug-passenger/pull/1)
 
